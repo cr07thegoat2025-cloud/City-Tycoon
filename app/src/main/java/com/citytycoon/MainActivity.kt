@@ -2,7 +2,6 @@ package com.citytycoon
 
 import android.content.Context
 import android.os.Bundle
-import android.view.KeyEvent
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Canvas
@@ -20,7 +19,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.input.key.onPreviewKeyEvent
-import androidx.compose.ui.input.key.nativeKeyEvent
+import androidx.compose.ui.input.key.Key
+import androidx.compose.ui.input.key.KeyEventType
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
@@ -74,7 +74,7 @@ class MainActivity:ComponentActivity(){
  if(!started){MaterialTheme(colorScheme=darkColorScheme(primary=Color(0xFFD5B56D),background=Color(0xFF17221D))){Box(Modifier.fillMaxSize().background(Color(0xFF17221D)),Alignment.Center){Column(horizontalAlignment=Alignment.CenterHorizontally,verticalArrangement=Arrangement.spacedBy(14.dp)){Text("CITY TYCOON",style=MaterialTheme.typography.displayLarge,color=Color(0xFFE4C77F),fontWeight=FontWeight.Black);Text("Build a town. Shape a city.",color=Color.LightGray);Button(onClick={reset();started=true}){Text("NEW CITY")};OutlinedButton(onClick={if(load())started=true else note="No saved city yet."}){Text("CONTINUE CITY")};Text(note,color=Color.Gray)}}};return}
  val population=pop();val dailyIncome=plots.sumOf{spec(it.kind)?.income?:0}+(population*.72*tax/100).toInt();val dailyCost=plots.sumOf{spec(it.kind)?.upkeep?:0}
  MaterialTheme(colorScheme=darkColorScheme(primary=Color(0xFFD5B56D),background=Color(0xFF17221D),surface=Color(0xFF26342C))){
- Column(Modifier.fillMaxSize().background(Color(0xFF17221D)).focusRequester(focus).focusable().onPreviewKeyEvent{e->val k=e.nativeKeyEvent;if(k.action!=KeyEvent.ACTION_DOWN)false else when(k.keyCode){KeyEvent.KEYCODE_W,KeyEvent.KEYCODE_DPAD_UP->{camera+=Offset(0f,35f);true};KeyEvent.KEYCODE_S,KeyEvent.KEYCODE_DPAD_DOWN->{camera+=Offset(0f,-35f);true};KeyEvent.KEYCODE_A,KeyEvent.KEYCODE_DPAD_LEFT->{camera+=Offset(35f,0f);true};KeyEvent.KEYCODE_D,KeyEvent.KEYCODE_DPAD_RIGHT->{camera+=Offset(-35f,0f);true};KeyEvent.KEYCODE_B->{tab="Build";true};KeyEvent.KEYCODE_R->{tool="Road";tab="Build";true};KeyEvent.KEYCODE_SPACE->{paused=!paused;true};KeyEvent.KEYCODE_ESCAPE,KeyEvent.KEYCODE_BACK->{tool="Select";selected=null;true};KeyEvent.KEYCODE_1->{speed=1;paused=false;true};KeyEvent.KEYCODE_2->{speed=2;paused=false;true};KeyEvent.KEYCODE_3->{speed=3;paused=false;true};else->false}}){
+ Column(Modifier.fillMaxSize().background(Color(0xFF17221D)).focusRequester(focus).focusable().onPreviewKeyEvent{e->if(e.type!=KeyEventType.KeyDown)false else when(e.key){Key.W,Key.DirectionUp->{camera+=Offset(0f,35f);true};Key.S,Key.DirectionDown->{camera+=Offset(0f,-35f);true};Key.A,Key.DirectionLeft->{camera+=Offset(35f,0f);true};Key.D,Key.DirectionRight->{camera+=Offset(-35f,0f);true};Key.B->{tab="Build";true};Key.R->{tool="Road";tab="Build";true};Key.Spacebar->{paused=!paused;true};Key.Escape->{tool="Select";selected=null;true};Key.One->{speed=1;paused=false;true};Key.Two->{speed=2;paused=false;true};Key.Three->{speed=3;paused=false;true};else->false}}){
  Row(Modifier.fillMaxWidth().background(Color(0xFF202D26)).padding(9.dp),horizontalArrangement=Arrangement.SpaceBetween,verticalAlignment=Alignment.CenterVertically){
  Column{Text("CITY TYCOON",color=Color(0xFFE4C77F),fontWeight=FontWeight.Bold);Text("DAY $day • LEVEL ${level()}",color=Color.LightGray,style=MaterialTheme.typography.labelSmall)}
  Stat("CASH","$"+ "%,d".format(cash));Stat("POPULATION","%,d".format(population));Stat("HAPPINESS","$happy%");Stat("JOBS","%,d".format(jobs()))
