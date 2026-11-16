@@ -1,23 +1,27 @@
 # CITY TYCOON
 
-A native Android city-building game built with Kotlin, Jetpack Compose and a custom Canvas map renderer. This is an Android app, not a website or WebView.
+A native Android city-building game built with Kotlin, Jetpack Compose and a custom Canvas map renderer. This is a genuine Android app, not a website or WebView.
 
-## Current playable systems
+## Playable systems in this build
 
-- Landscape city map with tile placement, camera panning and pinch zoom.
-- Residential, commercial, industrial, service, road and decoration building catalog.
-- Building prices, maintenance, business income, housing capacity and job capacity.
-- Day-based economy simulation, tax control, happiness, pollution pressure and bankruptcy warnings.
-- City level unlocks, purchasable land expansion, selection and demolition refunds.
-- Save/continue using Android local preferences.
-- Touch controls plus keyboard camera movement, build shortcuts, pause and simulation speed controls.
+- Landscape tile map with building placement, selection, demolition and land expansion.
+- Residential, commercial, industrial, road, public-service and decoration catalogues.
+- Building prices, daily maintenance, business income, housing capacity and jobs.
+- Simulated days, tax control, cash flow and bankruptcy warnings.
+- Residents grow over time when housing, employment and happiness conditions allow; population is saved locally.
+- Happiness responds to parks, services, pollution and tax pressure.
+- City levels unlock larger buildings.
+- Achievement panel with city-building milestones.
+- Simple moving traffic markers appear on connected adjacent road tiles.
+- Local save/continue using Android SharedPreferences.
+- Touch controls, camera drag, pinch zoom and OTG keyboard shortcuts.
 
 ## Controls
 
 | Input | Action |
 |---|---|
-| Tap building tool, then map tile | Place a building |
-| Select tool, then building | Inspect a building |
+| Tap a building tool, then a map tile | Place a building |
+| Select tool, then a building | Inspect a building |
 | Drag | Pan camera |
 | Pinch | Zoom |
 | WASD / Arrow keys | Move camera |
@@ -27,7 +31,7 @@ A native Android city-building game built with Kotlin, Jetpack Compose and a cus
 | 1 / 2 / 3 | Normal / 2x / 3x speed |
 | Escape | Cancel current selection |
 
-A mouse can tap/click the map and use the same pointer controls. Keyboard and mouse support depends on the Android device and connected OTG hardware.
+Mouse click/tap uses the same map pointer controls. External keyboard support is available when the Android device reports hardware key events.
 
 ## Build an APK
 
@@ -46,8 +50,8 @@ APK output:
 
 `app/build/outputs/apk/debug/app-debug.apk`
 
-GitHub Actions builds the debug APK on pushes to `main`. Open the repository's **Actions** tab, choose the latest **Android APK** run, and download the `city-tycoon-debug-apk` artifact after the run succeeds. Extract the ZIP and install the APK on an Android device.
+GitHub Actions builds a debug APK on pushes to `main`. Open the repository's **Actions** tab, choose the latest successful **Android APK** run, and download the `city-tycoon-debug-apk` artifact. Extract the ZIP and install `app-debug.apk` on an Android device.
 
-## Scope note
+## Simulation scope
 
-This is an evolving indie-game implementation. Citizen behaviour, traffic routing, emergency response, achievements, sound, and detailed service coverage are not yet implemented as full simulation systems. The current population and employment figures are lightweight management estimates, not individually animated citizen agents. Do not treat a successful APK build as proof that every feature in the original design brief is complete.
+This is a playable early version, not the full feature list from the original master brief. Residents are simulated as a city-wide population value rather than individual agents with destinations. Traffic markers animate on adjacent road tiles, but there is no full road pathfinding, congestion model, delivery routing or emergency-vehicle dispatch yet. Public buildings currently affect service/happiness values in a simplified way. Sound, music, detailed service coverage, and advanced upgrades are not included yet.
